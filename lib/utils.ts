@@ -1,16 +1,13 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
+import type { CenteringMethod, CenteringDirection } from "./center-data"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-interface DemoMethod {
-  demoComponent: (direction: string) => string | { parent: string; child: string };
-}
-
 // Helper function to get demo styles from a method
-export function getDemoStyles(method: DemoMethod, direction: string) {
+export function getDemoStyles(method: CenteringMethod, direction: CenteringDirection) {
   const result = method.demoComponent(direction);
   if (typeof result === "string") {
     return { parent: result, child: "" };
@@ -18,13 +15,7 @@ export function getDemoStyles(method: DemoMethod, direction: string) {
   return result;
 }
 
-interface CodeMethod extends DemoMethod {
-  horizontalCode?: string;
-  verticalCode?: string;
-  bothCode?: string;
-}
-
-export function getCode(method: CodeMethod, direction: string) {
+export function getCode(method: CenteringMethod, direction: CenteringDirection) {
   if (direction === "horizontal") {
     return method.horizontalCode || "";
   } else if (direction === "vertical") {
