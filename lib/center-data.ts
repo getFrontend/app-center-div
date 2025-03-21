@@ -17,10 +17,10 @@ export interface CenteringMethod {
 export const centeringMethods: CenteringMethod[] = [
   {
     id: "flexbox",
-    name: "Flexbox",
+    name: "Flexbox ⭐",
     description: "The modern way to center elements using flexible box layout.",
     pros: ["Easy to use", "Works for multiple elements", "Responsive"],
-    cons: ["Not supported in very old browsers"],
+    cons: ["Not supported in very old browsers like IE 6-9"],
     horizontalCode: `
 .parent {
   display: flex;
@@ -274,38 +274,8 @@ export const centeringMethods: CenteringMethod[] = [
     },
   },
   {
-    id: "line-height",
-    name: "Line Height",
-    description: "Using line-height for vertical centering of single-line text.",
-    pros: ["Simple for text centering", "Good browser support"],
-    cons: ["Only works for single-line text", "Limited to vertical centering"],
-    horizontalCode: `
-.parent {
-  text-align: center;
-}`,
-    verticalCode: `
-.parent {
-  height: 100px;
-  line-height: 100px; /* Same as height */
-}`,
-    bothCode: `
-.parent {
-  height: 100px;
-  line-height: 100px; /* Same as height */
-  text-align: center;
-}`,
-    demoComponent: (direction: CenteringDirection) => {
-      const styles = {
-        horizontal: "text-center",
-        vertical: "h-24 leading-[6rem]",
-        both: "h-24 leading-[6rem] text-center",
-      }
-      return styles[direction]
-    },
-  },
-  {
     id: "flex-align-self",
-    name: "Flexbox with Align Self",
+    name: "Flexbox with Align-self",
     description: "Using flexbox with align-self for individual item alignment.",
     pros: ["Targets specific items", "Flexible and powerful"],
     cons: ["Requires flexbox context", "More complex than basic flexbox"],
@@ -352,7 +322,7 @@ export const centeringMethods: CenteringMethod[] = [
   },
   {
     id: "grid-place-self",
-    name: "Grid with Place Self",
+    name: "Grid with Place-self",
     description: "Using CSS Grid's place-self property for individual item alignment.",
     pros: ["Concise syntax", "Works for individual items"],
     cons: ["Requires grid context", "Not supported in older browsers"],
@@ -449,4 +419,34 @@ export const centeringMethods: CenteringMethod[] = [
       return { parent: styles[direction], child: childStyles[direction] }
     },
   },
+  {
+    id: "line-height",
+    name: "Line Height",
+    description: "Using line-height for vertical centering of single-line text.",
+    pros: ["Simple for text centering", "Good browser support"],
+    cons: ["Only works for single-line text", "Limited to vertical centering"],
+    horizontalCode: `
+.parent {
+  text-align: center;
+}`,
+    verticalCode: `
+.parent {
+  height: 100px;
+  line-height: 100px; /* Same as height */
+}`,
+    bothCode: `
+.parent {
+  height: 100px;
+  line-height: 100px; /* Same as height */
+  text-align: center;
+}`,
+    demoComponent: (direction: CenteringDirection) => {
+      const styles = {
+        horizontal: "text-center",
+        vertical: "h-24 leading-[6rem]",
+        both: "h-24 leading-[6rem] text-center",
+      }
+      return styles[direction]
+    },
+  }
 ]
