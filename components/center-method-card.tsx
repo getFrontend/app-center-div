@@ -65,7 +65,7 @@ export function CenterMethodCard({ method, direction, onDirectionChange }: Cente
             <Badge variant="outline">Pros</Badge>
             <div className="flex flex-wrap gap-2">
               {method.pros.map((pro, index) => (
-                <Badge key={index} variant="secondary">
+                <Badge key={index} variant="pros">
                   {pro}
                 </Badge>
               ))}
