@@ -1,16 +1,14 @@
 "use client"
 
-import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Copy, Check } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import type { CenteringDirection, CenteringMethod } from "@/lib/center-data"
 import { getDemoStyles, getCode } from "@/lib/utils"
+import { SimpleCodeBlock } from "@/components/simple-code-block"
 
 interface CenterMethodCardProps {
   method: CenteringMethod
@@ -19,14 +17,6 @@ interface CenterMethodCardProps {
 }
 
 export function CenterMethodCard({ method, direction, onDirectionChange }: CenterMethodCardProps) {
-  const [copied, setCopied] = useState(false)
-
-  const copyCode = () => {
-    navigator.clipboard.writeText(getCode(method, direction).trim())
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
-
   const demoStyles = getDemoStyles(method, direction)
 
   return (
@@ -99,7 +89,7 @@ export function CenterMethodCard({ method, direction, onDirectionChange }: Cente
             <TabsTrigger value="code">Code</TabsTrigger>
           </TabsList>
           <TabsContent value="demo" className="p-0">
-            <div className="border rounded-md bg-muted/40 h-[300px] overflow-hidden">
+            <div className="border rounded-md bg-muted/40 dark:bg-slate-900 h-[300px] overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${method.id}-${direction}`}
@@ -118,21 +108,14 @@ export function CenterMethodCard({ method, direction, onDirectionChange }: Cente
                       damping: 30,
                     }}
                   >
-                    DIV
+                    Centered
                   </motion.div>
                 </motion.div>
               </AnimatePresence>
             </div>
           </TabsContent>
           <TabsContent value="code" className="p-0">
-            <div className="relative">
-              <pre className="language-css rounded-md bg-muted/40 p-4 overflow-x-auto">
-                <code>{getCode(method, direction)}</code>
-              </pre>
-              <Button size="sm" variant="ghost" className="absolute top-2 right-2" onClick={copyCode}>
-                {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-              </Button>
-            </div>
+            <SimpleCodeBlock code={getCode(method, direction)} />
           </TabsContent>
         </Tabs>
       </CardContent>
